@@ -1,4 +1,6 @@
-﻿namespace Multiple_Regression_Algorithm
+﻿using System.Reflection.Metadata.Ecma335;
+
+namespace Multiple_Regression_Algorithm
 {
     public static class Gauss
     {
@@ -6,9 +8,7 @@
         {
             // CHECK HOW MANY INDEPENDENT VARIABLES ARE INPUTED... MUST BE MORE THAN 2
             // CHECK THE FILE HANDLING
-            //int a = int.Parse(Console.ReadLine());
-            //int[] ints = new int[a];
-            Console.WriteLine("Current working directory: " + Environment.CurrentDirectory);
+
             Console.WriteLine("Enter the number of independent variables: ");
            // int numIndependentVars = int.Parse(Console.ReadLine());
             // HARDCODED -------->>>>>>>>>>>>>>>> REMOVE LATER
@@ -23,7 +23,7 @@
             double[] result = RegressionAlgorithmFromFile(filePath);
             for (int i = 0; i < result.Length; i++)
             {
-                Console.WriteLine(result[i]);
+                Console.WriteLine("B" + i + ": " + result[i]);
             }
         }
 
@@ -37,6 +37,54 @@
         public static double[] RegressionAlgorithm(double[][] data, int numberOfVariables, int numberOfSamples)
         {
             // Solve the linear equations using the sums
+            double[][] matrix = ConstructMatrix(data, numberOfVariables, numberOfSamples);
+
+            // Gaussian elimination for reducing a matrix to row-echelon form.
+            ReduceMatrixToRowForm(matrix, numberOfVariables);
+
+            // Solving the system of linear equations represented by the row-echelon matrix.
+            double[] resultCoeff = new double[numberOfVariables];
+            for (int i = 0; i < resultCoeff.Length; i++)
+            {
+                resultCoeff[i] = 1f;
+            }
+            resultCoeff = BackSubstitution(matrix, resultCoeff, numberOfVariables);
+
+            // Round
+            for (int i = 0; i < resultCoeff.Length; i++)
+            {
+                resultCoeff[i] = Math.Round(resultCoeff[i], 4);
+            }
+
+            return resultCoeff;
+        }
+
+        public static double[][] ReadDataFromFile(string filePath)
+        {
+            string[] lines = File.ReadAllLines(filePath);
+
+            int numEntries = lines[0].Split(',').Length;
+            double[][] fileData = new double[numEntries][];
+            for (int i = 0; i < numEntries; i++)
+            {
+                fileData[i] = new double[lines.Length];
+            }
+
+            for (int i = 0; i < lines.Length; i++)
+            {
+                string[] values = lines[i].Split(',');
+                int lineEntries = values.Length;
+                for (int v = 0; v < lineEntries; v++)
+                {
+                    fileData[v][i] = double.Parse(values[v]);
+                }
+            }
+
+            return fileData;
+        }
+
+        public static double[][] ConstructMatrix(double[][] data, int numberOfVariables, int numberOfSamples)
+        {
             double[][] matrix = new double[numberOfVariables][];
             for (int i = 0; i < numberOfVariables; i++)
             {
@@ -70,9 +118,12 @@
                 matrix[i] = row;
             }
 
-            ////////   TEEEEEEEEEEEEEEEEEEEEEEESSSSSSSSSSSSSTTTTTTTTTTTTTTTTTTTT
+            return matrix;
+        }
 
-            // Removal
+        // Eliminating variables below the main diagonal to transform the matrix into an upper triangular form
+        public static void ReduceMatrixToRowForm(double[][] matrix, int numberOfVariables)
+        {
             for (int v = 0; v < numberOfVariables - 1; v++)
             {
                 var varSimplifying = v;
@@ -91,14 +142,11 @@
                     }
                 }
             }
+        }
 
-            // Backtrack
-            double[] resultCoeff = new double[numberOfVariables];
-            for (int i = 0; i < resultCoeff.Length; i++)
-            {
-                resultCoeff[i] = 1f;
-            }
-
+        // Calculating the coefficients of the regression model using back substitution
+        public static double[] BackSubstitution(double[][] matrix, double[] resultCoeff, int numberOfVariables)
+        {
             for (int i = numberOfVariables - 1; i >= 0; i--)
             {
                 var row = matrix[i];
@@ -126,42 +174,9 @@
                     target -= row[c];
                 }
 
-                resultCoeff[i] = target / firstNonZero; 
+                resultCoeff[i] = target / firstNonZero;
             }
-
-            // Round
-            for (int i = 0; i < resultCoeff.Length; i++)
-            {
-                resultCoeff[i] = Math.Round(resultCoeff[i], 4);
-            }
-
             return resultCoeff;
         }
-
-
-        public static double[][] ReadDataFromFile(string filePath)
-        {
-            string[] lines = File.ReadAllLines(filePath);
-
-            int numEntries = lines[0].Split(',').Length;
-            double[][] fileData = new double[numEntries][];
-            for (int i = 0; i < numEntries; i++)
-            {
-                fileData[i] = new double[lines.Length];
-            }
-
-            for (int i = 0; i < lines.Length; i++)
-            {
-                string[] values = lines[i].Split(',');
-                int lineEntries = values.Length;
-                for (int v = 0; v < lineEntries; v++)
-                {
-                    fileData[v][i] = double.Parse(values[v]);
-                }
-            }
-
-            return fileData;
-        }
-
     }
 }
