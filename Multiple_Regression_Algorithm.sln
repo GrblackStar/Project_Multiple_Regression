@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Multiple_Regression_Algorithm", "Multiple_Regression_Algorithm\Multiple_Regression_Algorithm.csproj", "{A9C4F73E-938D-4713-99D9-66216ADB3827}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Multiple_Regression_Algorithm", "Multiple_Regression_Algorithm\Multiple_Regression_Algorithm.csproj", "{A9C4F73E-938D-4713-99D9-66216ADB3827}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{C9AC40CF-CF59-43E9-90CE-21DA675A08B8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Tests", "Tests\Tests.csproj", "{C9AC40CF-CF59-43E9-90CE-21DA675A08B8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
