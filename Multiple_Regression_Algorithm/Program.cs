@@ -5,12 +5,12 @@ namespace Multiple_Regression_Algorithm
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Enter the path to the data file: ");
-            //string filePath = Console.ReadLine();
-            // HARDCODED -------->>>>>>>>>>>>>>>> REMOVE LATER
+            //int numVariables = InputHandler.GetAndValidateVariableInput();
+            //string file = InputHandler.GetAndValidateFilePathInput();
+
             string filePath = "Test_Data_3.txt";
 
-            // Read data from the file
+            // Read data from the file and executing the algorithm
             double[] result = MultipleRegression.RegressionAlgorithmFromFile(filePath);
             for (int i = 0; i < result.Length; i++)
             {

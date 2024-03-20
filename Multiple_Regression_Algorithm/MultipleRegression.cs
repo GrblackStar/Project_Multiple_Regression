@@ -3,6 +3,11 @@ namespace Multiple_Regression_Algorithm
 {
     public class MultipleRegression
     {
+        public static string HandleInputFile(string inputFileName)
+        {
+            return null;
+        }
+
         public static double[] RegressionAlgorithmFromFile(string filePath)
         {
             double[][] inputData = ReadDataFromFile(filePath);
@@ -100,13 +105,13 @@ namespace Multiple_Regression_Algorithm
         // Eliminating variables below the main diagonal to transform the matrix into an upper triangular form
         public static void ReduceMatrixToRowForm(double[][] matrix, int numberOfVariables)
         {
-            for (int v = 0; v < numberOfVariables - 1; v++)
+            for (int i = 0; i < numberOfVariables - 1; i++)
             {
-                var varSimplifying = v;
-                var firstRow = matrix[v];
+                var varSimplifying = i;
+                var firstRow = matrix[i];
                 var firstRowValue = firstRow[varSimplifying];
 
-                for (int r = v + 1; r < matrix.Length; r++)
+                for (int r = i + 1; r < matrix.Length; r++)
                 {
                     var myRow = matrix[r];
                     var targetValue = myRow[varSimplifying];
