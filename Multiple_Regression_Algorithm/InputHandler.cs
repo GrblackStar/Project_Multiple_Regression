@@ -8,6 +8,13 @@ namespace Multiple_Regression_Algorithm
 {
     public class InputHandler
     {
+        public static void PrintErrorMessage(string message)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(message);
+            Console.ResetColor();
+        }
+
         public static int GetAndValidateVariableInput()
         {
             int numVariables = 0;
@@ -19,13 +26,13 @@ namespace Multiple_Regression_Algorithm
 
                 if (!int.TryParse(numInput, out numVariables))
                 {
-                    Console.WriteLine("Invalid input. Please enter a whole number.");
+                    PrintErrorMessage("Invalid input. Please enter a whole number.");
                     continue;
                 }
 
                 if (int.Parse(numInput) < 2)
                 {
-                    Console.WriteLine("Invalid input. Please enter a number equal or greater than 2.");
+                    PrintErrorMessage("Invalid input. Please enter a number equal or greater than 2.");
                     continue;
                 }
 
@@ -45,13 +52,13 @@ namespace Multiple_Regression_Algorithm
 
                 if (Path.GetExtension(filePath) != ".txt")
                 {
-                    Console.WriteLine("Invalid or missing file format. Only .txt files are supported.");
+                    PrintErrorMessage("Invalid or missing file format. Only .txt files are supported.");
                     continue;
                 }
 
                 if (!File.Exists(filePath))
                 {
-                    Console.WriteLine("File does not exist. Please enter a valid file path.");
+                    PrintErrorMessage("File does not exist. Please enter a valid file path.");
                     continue;
                 }
 

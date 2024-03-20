@@ -3,11 +3,6 @@ namespace Multiple_Regression_Algorithm
 {
     public class MultipleRegression
     {
-        public static string HandleInputFile(string inputFileName)
-        {
-            return null;
-        }
-
         public static double[] RegressionAlgorithmFromFile(string filePath)
         {
             double[][] inputData = ReadDataFromFile(filePath);
@@ -17,6 +12,12 @@ namespace Multiple_Regression_Algorithm
         // Function to perform Gaussian elimination and back substitution
         public static double[] RegressionAlgorithm(double[][] data, int numberOfVariables, int numberOfSamples)
         {
+            if (!ValidateData(data, numberOfVariables, numberOfSamples))
+            {
+                InputHandler.PrintErrorMessage("The provided data is invalid.");
+                Environment.Exit(0);
+            }
+
             // Solve the linear equations using the sums
             double[][] matrix = ConstructMatrix(data, numberOfVariables, numberOfSamples);
 
@@ -30,6 +31,12 @@ namespace Multiple_Regression_Algorithm
                 resultCoeff[i] = 1f;
             }
             resultCoeff = BackSubstitution(matrix, resultCoeff, numberOfVariables);
+
+            if (resultCoeff.Any(double.IsNaN))
+            {
+                InputHandler.PrintErrorMessage("The data has multicolinearity. A correlation coefficient is close to 1 or -1");
+                Environment.Exit(0);
+            }
 
             // Round
             for (int i = 0; i < resultCoeff.Length; i++)
@@ -160,6 +167,71 @@ namespace Multiple_Regression_Algorithm
             
             return resultCoeff;
         }
-    
+
+        public static bool ValidateData(double[][] data, int numberOfVariables, int numberOfSamples)
+        {
+            if (numberOfSamples <= numberOfVariables)
+            {
+                InputHandler.PrintErrorMessage("Invalid number of samples. Ensure that the samples are more than the variables.");
+                return false;
+            }
+
+            for (int i = 0; i < numberOfSamples; i++)
+            {
+                if (data.Length != numberOfSamples)
+                {
+                    InputHandler.PrintErrorMessage("Inconsistent data size. Ensure that each variable has the same amount of samples.");
+                    return false;
+                }
+
+                foreach (var value in data[i])
+                {
+                    if (!double.TryParse(value.ToString(), out _))
+                    {
+                        InputHandler.PrintErrorMessage("Inconsistent data format. Ensure that the samples are only numbers.");
+                        return false;
+                    }
+                }
+            }
+
+            for (int i = 0; i < numberOfVariables; i++)
+            {
+                var row = new double[numberOfSamples];
+                for (int j = 0; j < numberOfSamples; j++)
+                {
+                    row[j] = data[j][i];
+                }
+
+                if (row.All(value => value == 0))
+                {
+                    InputHandler.PrintErrorMessage("One or more variables have only zero sample values. Exiting program.");
+                    return false;
+                }
+            }
+
+            for (int i = 0; i < numberOfVariables - 1; i++)
+            {
+                for (int j = i + 1; j < numberOfVariables; j++)
+                {
+                    var row1 = new double[numberOfSamples];
+                    var row2 = new double[numberOfSamples];
+
+                    for (int k = 0; k < numberOfSamples; k++)
+                    {
+                        row1[k] = data[k][i];
+                        row2[k] = data[k][j];
+                    }
+
+                    if (row1.SequenceEqual(row2))
+                    {
+                        InputHandler.PrintErrorMessage("Two or more variables have the same values for every sample.");
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
     }
 }
