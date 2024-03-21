@@ -1,21 +1,20 @@
-﻿
-namespace Multiple_Regression_Algorithm
+﻿namespace Multiple_Regression_Algorithm
 {
     public class MultipleRegression
     {
-        public static double[] RegressionAlgorithmFromFile(string filePath)
+        public static double[]? RegressionAlgorithmFromFile(string filePath)
         {
             double[][] inputData = ReadDataFromFile(filePath);
             return RegressionAlgorithm(inputData, inputData[0].Length, inputData.Length);
         }
 
         // Function to perform Gaussian elimination and back substitution
-        public static double[] RegressionAlgorithm(double[][] data, int numberOfVariables, int numberOfSamples)
+        public static double[]? RegressionAlgorithm(double[][] data, int numberOfVariables, int numberOfSamples)
         {
             if (!ValidateData(data, numberOfVariables, numberOfSamples))
             {
                 InputHandler.PrintErrorMessage("The provided data is invalid.");
-                Environment.Exit(0);
+                return null;
             }
 
             // Solve the linear equations using the sums
@@ -35,7 +34,7 @@ namespace Multiple_Regression_Algorithm
             if (resultCoeff.Any(double.IsNaN))
             {
                 InputHandler.PrintErrorMessage("The data has multicolinearity. A correlation coefficient is close to 1 or -1");
-                Environment.Exit(0);
+                return null;
             }
 
             // Round

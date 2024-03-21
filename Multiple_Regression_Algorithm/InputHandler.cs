@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Multiple_Regression_Algorithm
 {
     public class InputHandler
@@ -15,55 +10,38 @@ namespace Multiple_Regression_Algorithm
             Console.ResetColor();
         }
 
-        public static int GetAndValidateVariableInput()
+        public static int ValidateVariableInput(string input)
         {
-            int numVariables = 0;
-
-            while (true)
+            if (!int.TryParse(input, out int numVariables))
             {
-                Console.WriteLine("Enter the number of independent variables: ");
-                string numInput = Console.ReadLine();
-
-                if (!int.TryParse(numInput, out numVariables))
-                {
-                    PrintErrorMessage("Invalid input. Please enter a whole number.");
-                    continue;
-                }
-
-                if (int.Parse(numInput) < 2)
-                {
-                    PrintErrorMessage("Invalid input. Please enter a number equal or greater than 2.");
-                    continue;
-                }
-
-                numVariables = int.Parse(numInput);
-                return numVariables;
+                PrintErrorMessage("Invalid input. Please enter a whole number.");
+                return -1;
             }
+
+            if (int.Parse(input) < 2)
+            {
+                PrintErrorMessage("Invalid input. Please enter a number equal or greater than 2.");
+                return -1;
+            }
+
+            return numVariables;
         }
 
-        public static string GetAndValidateFilePathInput()
+        public static string? ValidateFilePathInput(string input)
         {
-            string filePath = "";
-            
-            while (true)
+            if (Path.GetExtension(input) != ".txt")
             {
-                Console.WriteLine("Enter the path to the data file: ");
-                filePath = Console.ReadLine();
-
-                if (Path.GetExtension(filePath) != ".txt")
-                {
-                    PrintErrorMessage("Invalid or missing file format. Only .txt files are supported.");
-                    continue;
-                }
-
-                if (!File.Exists(filePath))
-                {
-                    PrintErrorMessage("File does not exist. Please enter a valid file path.");
-                    continue;
-                }
-
-                return filePath;
+                PrintErrorMessage("Invalid or missing file format. Only .txt files are supported.");
+                return null;
             }
+
+            if (!File.Exists(input))
+            {
+                PrintErrorMessage("File does not exist. Please enter a valid file path.");
+                return null;
+            }
+
+            return input;
         }
     }
 }
