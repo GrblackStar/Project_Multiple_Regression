@@ -87,7 +87,7 @@ namespace Tests
                 new double[] { 983, 2896, 120, 138 },
                 new double[] { 256, 485, 88, 61 }
             };
-            
+
             double[][]? actualData = MultipleRegression.ReadDataFromFile("Test_Data_2.txt");
 
             Assert.That(actualData, Has.Length.EqualTo(expectedData.Length));
@@ -195,7 +195,7 @@ namespace Tests
                 new double[] { 3, 4, 5, 21, 8 },
                 new double[] { 47, 64, 21, 397, 220 }
             };
-            
+
             double[][] inputData =
             {
                 new double[] { 1, 0, 4, 2 },
@@ -217,7 +217,7 @@ namespace Tests
 
 
         // TESTING ReduceMatrixToRowForm:
-        [Test]        
+        [Test]
         public void ReduceMatrixToRowFormTestfile1()
         {
             double[][] matrix =
@@ -255,7 +255,7 @@ namespace Tests
                 new double[] { 8761, 8519938, 21022091, 905925, 1265493 },
                 new double[] { 654, 620707, 905925, 137902, 100583 }
             };
-            
+
             double[][] expectedData =
             {
                 new double[] { 6, 4863, 8761, 654, 714 },
@@ -316,7 +316,7 @@ namespace Tests
 
             double[] expectedData = { 0.5664574696019447, 0.06532925469423313, 0.008718736194577725, 0.151048647610362 };
 
-            double[] actualData = MultipleRegression.BackSubstitution(matrix, new double[] {1, 1, 1, 1}, 4);
+            double[] actualData = MultipleRegression.BackSubstitution(matrix, new double[] { 1, 1, 1, 1 }, 4);
 
             Assert.That(matrix, Has.Length.EqualTo(expectedData.Length));
             Assert.That(actualData[0], Is.EqualTo(expectedData[0]));
@@ -335,7 +335,7 @@ namespace Tests
                 new double[] { 0, 0, 4759809.443422704, - 270635.3352428125, 5002.332227845356 },
                 new double[] { 0, 0, 0, 37073.92977685743, 9122.275195227476 }
             };
-            
+
             double[] expectedData = { 6.701336536389111, 0.07836603673386544, 0.015041331199344947, 0.24605633258014775 };
 
             double[] actualData = MultipleRegression.BackSubstitution(matrix, new double[] { 1, 1, 1, 1 }, 4);
@@ -358,7 +358,7 @@ namespace Tests
                 new double[] { 0, 0, 0, 25.71428571428575, 9.428571428571432 }
             };
 
-            double[] expectedData = { -0.7999999999999977, 2.1333333333333337, - 1.1666666666666667, 0.3666666666666663 };
+            double[] expectedData = { -0.7999999999999977, 2.1333333333333337, -1.1666666666666667, 0.3666666666666663 };
 
             double[] actualData = MultipleRegression.BackSubstitution(matrix, new double[] { 1, 1, 1, 1 }, 4);
 

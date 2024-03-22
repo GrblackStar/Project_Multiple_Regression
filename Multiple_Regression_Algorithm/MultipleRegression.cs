@@ -1,6 +1,4 @@
-﻿using static System.Runtime.InteropServices.JavaScript.JSType;
-
-namespace Multiple_Regression_Algorithm
+﻿namespace Multiple_Regression_Algorithm
 {
     public class MultipleRegression
     {
@@ -175,7 +173,7 @@ namespace Multiple_Regression_Algorithm
 
                 resultCoeff[i] = target / firstNonZero;
             }
-            
+
             return resultCoeff;
         }
 
