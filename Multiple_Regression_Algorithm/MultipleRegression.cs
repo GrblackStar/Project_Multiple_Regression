@@ -1,11 +1,15 @@
-﻿namespace Multiple_Regression_Algorithm
+﻿using static System.Runtime.InteropServices.JavaScript.JSType;
+
+namespace Multiple_Regression_Algorithm
 {
     public class MultipleRegression
     {
         public static double[]? RegressionAlgorithmFromFile(string filePath)
         {
-            double[][] inputData = ReadDataFromFile(filePath);
-            return RegressionAlgorithm(inputData, inputData[0].Length, inputData.Length);
+            double[][]? inputData = ReadDataFromFile(filePath);
+            if (inputData != null)
+                return RegressionAlgorithm(inputData, inputData[0].Length, inputData.Length);
+            else return null;
         }
 
         // Function to perform Gaussian elimination and back substitution
@@ -46,7 +50,7 @@
             return resultCoeff;
         }
 
-        public static double[][] ReadDataFromFile(string filePath)
+        public static double[][]? ReadDataFromFile(string filePath)
         {
             string[] lines = File.ReadAllLines(filePath);
 
@@ -63,7 +67,15 @@
                 int lineEntries = values.Length;
                 for (int v = 0; v < lineEntries; v++)
                 {
-                    fileData[v][i] = double.Parse(values[v]);
+                    if (double.TryParse(values[v], out double parsedValue))
+                    {
+                        fileData[v][i] = parsedValue;
+                    }
+                    else
+                    {
+                        InputHandler.PrintErrorMessage("Inconsistent data format. Ensure that the samples are only numbers.");
+                        return null;
+                    }
                 }
             }
 
@@ -173,24 +185,6 @@
             {
                 InputHandler.PrintErrorMessage("Invalid number of samples. Ensure that the samples are more than the variables.");
                 return false;
-            }
-
-            for (int i = 0; i < numberOfSamples; i++)
-            {
-                if (data.Length != numberOfSamples)
-                {
-                    InputHandler.PrintErrorMessage("Inconsistent data size. Ensure that each variable has the same amount of samples.");
-                    return false;
-                }
-
-                foreach (var value in data[i])
-                {
-                    if (!double.TryParse(value.ToString(), out _))
-                    {
-                        InputHandler.PrintErrorMessage("Inconsistent data format. Ensure that the samples are only numbers.");
-                        return false;
-                    }
-                }
             }
 
             for (int i = 0; i < numberOfVariables; i++)

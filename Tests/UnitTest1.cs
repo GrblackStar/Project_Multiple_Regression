@@ -13,9 +13,9 @@ namespace Tests
         [Test]
         public void RegressionAlgorithmFromFileTestfile1()
         {
-            double[] result = MultipleRegression.RegressionAlgorithmFromFile("Test_Data_1.txt");
+            double[]? result = MultipleRegression.RegressionAlgorithmFromFile("Test_Data_1.txt");
 
-            Assert.That(result[0], Is.EqualTo(0.5665));
+            Assert.That(result?[0], Is.EqualTo(0.5665));
             Assert.That(result[1], Is.EqualTo(0.0653));
             Assert.That(result[2], Is.EqualTo(0.0087));
             Assert.That(result[3], Is.EqualTo(0.1510));
@@ -26,9 +26,9 @@ namespace Tests
         [Test]
         public void RegressionAlgorithmFromFileTestfile2()
         {
-            double[] result = MultipleRegression.RegressionAlgorithmFromFile("Test_Data_2.txt");
+            double[]? result = MultipleRegression.RegressionAlgorithmFromFile("Test_Data_2.txt");
 
-            Assert.That(result[0], Is.EqualTo(6.7013));
+            Assert.That(result?[0], Is.EqualTo(6.7013));
             Assert.That(result[1], Is.EqualTo(0.0784));
             Assert.That(result[2], Is.EqualTo(0.015));
             Assert.That(result[3], Is.EqualTo(0.2461));
@@ -38,9 +38,9 @@ namespace Tests
         [Test]
         public void RegressionAlgorithmFromFileTestfile3()
         {
-            double[] result = MultipleRegression.RegressionAlgorithmFromFile("Test_Data_3.txt");
+            double[]? result = MultipleRegression.RegressionAlgorithmFromFile("Test_Data_3.txt");
 
-            Assert.That(result[0], Is.EqualTo(-0.8));
+            Assert.That(result?[0], Is.EqualTo(-0.8));
             Assert.That(result[1], Is.EqualTo(2.1333));
             Assert.That(result[2], Is.EqualTo(-1.1667));
             Assert.That(result[3], Is.EqualTo(0.3667));
@@ -64,9 +64,9 @@ namespace Tests
                 new double[] { 255, 0, 0, 15.3 }
             };
 
-            double[][] actualData = MultipleRegression.ReadDataFromFile("Test_Data_1.txt");
+            double[][]? actualData = MultipleRegression.ReadDataFromFile("Test_Data_1.txt");
 
-            Assert.AreEqual(expectedData.Length, actualData.Length);
+            Assert.That(actualData, Has.Length.EqualTo(expectedData.Length));
             Assert.That(actualData[0], Is.EqualTo(expectedData[0]));
             Assert.That(actualData[1], Is.EqualTo(expectedData[1]));
             Assert.That(actualData[2], Is.EqualTo(expectedData[2]));
@@ -88,9 +88,9 @@ namespace Tests
                 new double[] { 256, 485, 88, 61 }
             };
             
-            double[][] actualData = MultipleRegression.ReadDataFromFile("Test_Data_2.txt");
+            double[][]? actualData = MultipleRegression.ReadDataFromFile("Test_Data_2.txt");
 
-            Assert.AreEqual(expectedData.Length, actualData.Length);
+            Assert.That(actualData, Has.Length.EqualTo(expectedData.Length));
             Assert.That(actualData[0], Is.EqualTo(expectedData[0]));
             Assert.That(actualData[1], Is.EqualTo(expectedData[1]));
             Assert.That(actualData[2], Is.EqualTo(expectedData[2]));
@@ -112,9 +112,9 @@ namespace Tests
                 new double[] { 1, 0, 10, 5 }
             };
 
-            double[][] actualData = MultipleRegression.ReadDataFromFile("Test_Data_3.txt");
+            double[][]? actualData = MultipleRegression.ReadDataFromFile("Test_Data_3.txt");
 
-            Assert.AreEqual(expectedData.Length, actualData.Length);
+            Assert.That(actualData, Has.Length.EqualTo(expectedData.Length));
             Assert.That(actualData[0], Is.EqualTo(expectedData[0]));
             Assert.That(actualData[1], Is.EqualTo(expectedData[1]));
             Assert.That(actualData[2], Is.EqualTo(expectedData[2]));
@@ -146,9 +146,9 @@ namespace Tests
                 new double[] { 255, 0, 0, 15.3 }
             };
 
-            double[][] actualData = MultipleRegression.ConstructMatrix(inputData, 4, 6);
+            double[][]? actualData = MultipleRegression.ConstructMatrix(inputData, 4, 6);
 
-            Assert.AreEqual(expectedData.Length, actualData.Length);
+            Assert.That(actualData, Has.Length.EqualTo(expectedData.Length));
             Assert.That(actualData[0], Is.EqualTo(expectedData[0]));
             Assert.That(actualData[1], Is.EqualTo(expectedData[1]));
             Assert.That(actualData[2], Is.EqualTo(expectedData[2]));
@@ -176,9 +176,9 @@ namespace Tests
                 new double[] { 256, 485, 88, 61 }
             };
 
-            double[][] actualData = MultipleRegression.ConstructMatrix(inputData, 4, 6);
+            double[][]? actualData = MultipleRegression.ConstructMatrix(inputData, 4, 6);
 
-            Assert.AreEqual(expectedData.Length, actualData.Length);
+            Assert.That(actualData, Has.Length.EqualTo(expectedData.Length));
             Assert.That(actualData[0], Is.EqualTo(expectedData[0]));
             Assert.That(actualData[1], Is.EqualTo(expectedData[1]));
             Assert.That(actualData[2], Is.EqualTo(expectedData[2]));
@@ -206,9 +206,9 @@ namespace Tests
                 new double[] { 1, 0, 10, 5 }
             };
 
-            double[][] actualData = MultipleRegression.ConstructMatrix(inputData, 4, 6);
+            double[][]? actualData = MultipleRegression.ConstructMatrix(inputData, 4, 6);
 
-            Assert.AreEqual(expectedData.Length, actualData.Length);
+            Assert.That(actualData, Has.Length.EqualTo(expectedData.Length));
             Assert.That(actualData[0], Is.EqualTo(expectedData[0]));
             Assert.That(actualData[1], Is.EqualTo(expectedData[1]));
             Assert.That(actualData[2], Is.EqualTo(expectedData[2]));
@@ -238,7 +238,7 @@ namespace Tests
 
             MultipleRegression.ReduceMatrixToRowForm(matrix, 4);
 
-            Assert.AreEqual(expectedData.Length, matrix.Length);
+            Assert.That(matrix, Has.Length.EqualTo(expectedData.Length));
             Assert.That(matrix[0], Is.EqualTo(expectedData[0]));
             Assert.That(matrix[1], Is.EqualTo(expectedData[1]));
             Assert.That(matrix[2], Is.EqualTo(expectedData[2]));
@@ -266,7 +266,7 @@ namespace Tests
 
             MultipleRegression.ReduceMatrixToRowForm(matrix, 4);
 
-            Assert.AreEqual(expectedData.Length, matrix.Length);
+            Assert.That(matrix, Has.Length.EqualTo(expectedData.Length));
             Assert.That(matrix[0], Is.EqualTo(expectedData[0]));
             Assert.That(matrix[1], Is.EqualTo(expectedData[1]));
             Assert.That(matrix[2], Is.EqualTo(expectedData[2]));
@@ -294,7 +294,7 @@ namespace Tests
 
             MultipleRegression.ReduceMatrixToRowForm(matrix, 4);
 
-            Assert.AreEqual(expectedData.Length, matrix.Length);
+            Assert.That(matrix, Has.Length.EqualTo(expectedData.Length));
             Assert.That(matrix[0], Is.EqualTo(expectedData[0]));
             Assert.That(matrix[1], Is.EqualTo(expectedData[1]));
             Assert.That(matrix[2], Is.EqualTo(expectedData[2]));
@@ -318,7 +318,7 @@ namespace Tests
 
             double[] actualData = MultipleRegression.BackSubstitution(matrix, new double[] {1, 1, 1, 1}, 4);
 
-            Assert.AreEqual(expectedData.Length, matrix.Length);
+            Assert.That(matrix, Has.Length.EqualTo(expectedData.Length));
             Assert.That(actualData[0], Is.EqualTo(expectedData[0]));
             Assert.That(actualData[1], Is.EqualTo(expectedData[1]));
             Assert.That(actualData[2], Is.EqualTo(expectedData[2]));
@@ -340,7 +340,7 @@ namespace Tests
 
             double[] actualData = MultipleRegression.BackSubstitution(matrix, new double[] { 1, 1, 1, 1 }, 4);
 
-            Assert.AreEqual(expectedData.Length, matrix.Length);
+            Assert.That(matrix, Has.Length.EqualTo(expectedData.Length));
             Assert.That(actualData[0], Is.EqualTo(expectedData[0]));
             Assert.That(actualData[1], Is.EqualTo(expectedData[1]));
             Assert.That(actualData[2], Is.EqualTo(expectedData[2]));
@@ -362,7 +362,7 @@ namespace Tests
 
             double[] actualData = MultipleRegression.BackSubstitution(matrix, new double[] { 1, 1, 1, 1 }, 4);
 
-            Assert.AreEqual(expectedData.Length, matrix.Length);
+            Assert.That(matrix, Has.Length.EqualTo(expectedData.Length));
             Assert.That(actualData[0], Is.EqualTo(expectedData[0]));
             Assert.That(actualData[1], Is.EqualTo(expectedData[1]));
             Assert.That(actualData[2], Is.EqualTo(expectedData[2]));
@@ -373,6 +373,9 @@ namespace Tests
 
         #region Error Tests
 
+
+        #region Variable Input
+
         [Test]
         public void ValidVariableInput()
         {
@@ -380,29 +383,9 @@ namespace Tests
             Assert.That(result, Is.EqualTo(5));
         }
 
-        [Test]
-        public void ValidFilePathInput()
-        {
-            string result = InputHandler.ValidateFilePathInput("Test_Data_1.txt");
-            Assert.That(result, Is.EqualTo("Test_Data_1.txt"));
-        }
 
         [Test]
-        public void InValidFilePathInput()
-        {
-            var stringWriter = new StringWriter();
-            Console.SetOut(stringWriter);
-
-            string result = InputHandler.ValidateFilePathInput("non_existant_file.txt");
-
-            string expectedErrorMessage = "File does not exist. Please enter a valid file path.";
-            string consoleOutput = stringWriter.ToString();
-            Assert.That(result, Is.EqualTo(null));
-            Assert.IsTrue(consoleOutput.Contains(expectedErrorMessage));
-        }
-
-        [Test]
-        public void TestMethod_PrintsErrorMessage()
+        public void InvalidVariableInputLessThanTwo()
         {
             var stringWriter = new StringWriter();
             Console.SetOut(stringWriter);
@@ -415,6 +398,155 @@ namespace Tests
             Assert.IsTrue(consoleOutput.Contains(expectedErrorMessage));
         }
 
+        [Test]
+        public void InvalidVariableInputNotAnInt()
+        {
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            var result = InputHandler.ValidateVariableInput("5f");
+
+            string expectedErrorMessage = "Invalid input. Please enter a whole number.";
+            string consoleOutput = stringWriter.ToString();
+            Assert.That(result, Is.EqualTo(-1));
+            Assert.IsTrue(consoleOutput.Contains(expectedErrorMessage));
+        }
+
+
+
+
+
+
+        #endregion
+
+
+        #region File Path Input
+
+        [Test]
+        public void ValidFilePathInput()
+        {
+            string? result = InputHandler.ValidateFilePathInput("Test_Data_1.txt");
+            Assert.That(result, Is.EqualTo("Test_Data_1.txt"));
+        }
+
+        [Test]
+        public void InValidFilePathInputNotExistant()
+        {
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            string? result = InputHandler.ValidateFilePathInput("non_existant_file.txt");
+
+            string expectedErrorMessage = "File does not exist. Please enter a valid file path.";
+            string consoleOutput = stringWriter.ToString();
+            Assert.That(result, Is.EqualTo(null));
+            Assert.IsTrue(consoleOutput.Contains(expectedErrorMessage));
+        }
+
+        [Test]
+        public void InValidFilePathInputNoExtension()
+        {
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            string? result = InputHandler.ValidateFilePathInput("test_file");
+
+            string expectedErrorMessage = "Invalid or missing file format. Only .txt files are supported.";
+            string consoleOutput = stringWriter.ToString();
+            Assert.That(result, Is.EqualTo(null));
+            Assert.IsTrue(consoleOutput.Contains(expectedErrorMessage));
+        }
+
+        [Test]
+        public void InValidFilePathInputIncorrectExtension()
+        {
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            string? result = InputHandler.ValidateFilePathInput("test_file.something");
+
+            string expectedErrorMessage = "Invalid or missing file format. Only .txt files are supported.";
+            string consoleOutput = stringWriter.ToString();
+            Assert.That(result, Is.EqualTo(null));
+            Assert.IsTrue(consoleOutput.Contains(expectedErrorMessage));
+        }
+
+        #endregion
+
+
+        #region Data Handling
+
+        [Test]
+        public void DataInvalidSampleNumber()
+        {
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            double[]? result = MultipleRegression.RegressionAlgorithmFromFile("Test_Data_5.txt");
+
+            string expectedErrorMessage = "Invalid number of samples. Ensure that the samples are more than the variables.";
+            string consoleOutput = stringWriter.ToString();
+            Assert.That(result, Is.EqualTo(null));
+            Assert.IsTrue(consoleOutput.Contains(expectedErrorMessage));
+        }
+
+        [Test]
+        public void DataInconsistantDataFormat()
+        {
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            double[]? result = MultipleRegression.RegressionAlgorithmFromFile("Test_Data_6.txt");
+
+            string expectedErrorMessage = "Inconsistent data format. Ensure that the samples are only numbers.";
+            string consoleOutput = stringWriter.ToString();
+            Assert.That(result, Is.EqualTo(null));
+            Assert.IsTrue(consoleOutput.Contains(expectedErrorMessage));
+        }
+
+        [Test]
+        public void DataMulticolinearity()
+        {
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            double[]? result = MultipleRegression.RegressionAlgorithmFromFile("Test_Data_4.txt");
+
+            string expectedErrorMessage = "The data has multicolinearity. A correlation coefficient is close to 1 or -1";
+            string consoleOutput = stringWriter.ToString();
+            Assert.That(result, Is.EqualTo(null));
+            Assert.IsTrue(consoleOutput.Contains(expectedErrorMessage));
+        }
+
+        [Test]
+        public void DataSamplesValueZero()
+        {
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            double[]? result = MultipleRegression.RegressionAlgorithmFromFile("Test_Data_9.txt");
+
+            string expectedErrorMessage = "One or more variables have only zero sample values. Exiting program.";
+            string consoleOutput = stringWriter.ToString();
+            Assert.That(result, Is.EqualTo(null));
+            Assert.IsTrue(consoleOutput.Contains(expectedErrorMessage));
+        }
+
+        [Test]
+        public void DataVariablesWithTheSameSamples()
+        {
+            var stringWriter = new StringWriter();
+            Console.SetOut(stringWriter);
+
+            double[]? result = MultipleRegression.RegressionAlgorithmFromFile("Test_Data_10.txt");
+
+            string expectedErrorMessage = "Two or more variables have the same values for every sample.";
+            string consoleOutput = stringWriter.ToString();
+            Assert.That(result, Is.EqualTo(null));
+            Assert.IsTrue(consoleOutput.Contains(expectedErrorMessage));
+        }
+
+        #endregion
 
         #endregion
     }

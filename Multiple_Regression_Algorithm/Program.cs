@@ -8,25 +8,25 @@ namespace Multiple_Regression_Algorithm
             //int numVariables = InputHandler.GetAndValidateVariableInput();
             //string file = InputHandler.GetAndValidateFilePathInput();
 
-            int numVariables;
-            while (true)
-            {
-                Console.WriteLine("Enter the number of independent variables: ");
-                numVariables = InputHandler.ValidateVariableInput(Console.ReadLine());
-                if (numVariables > 0) break;
-                else continue;
-            }
+            //int numVariables;
+            //while (true)
+            //{
+            //    Console.WriteLine("Enter the number of independent variables: ");
+            //    numVariables = InputHandler.ValidateVariableInput(Console.ReadLine());
+            //    if (numVariables > 0) break;
+            //    else continue;
+            //}
 
-            string? file;
-            while (true)
-            {
-                Console.WriteLine("Enter the path to the data file: ");
-                file = InputHandler.ValidateFilePathInput(Console.ReadLine());
-                if (file != null) break;
-                else continue;
-            }
+            //string? file;
+            //while (true)
+            //{
+            //    Console.WriteLine("Enter the path to the data file: ");
+            //    file = InputHandler.ValidateFilePathInput(Console.ReadLine());
+            //    if (file != null) break;
+            //    else continue;
+            //}
 
-            string filePath = "Test_Data_3.txt";
+            string filePath = "Test_Data_1.txt";
 
             // Read data from the file and executing the algorithm
             double[]? result = MultipleRegression.RegressionAlgorithmFromFile(filePath);
