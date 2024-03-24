@@ -1,56 +1,11 @@
-using Multiple_Regression_Algorithm;
+﻿using Multiple_Regression_Algorithm;
 
 namespace Tests
 {
-    public class Tests
+    public class UnitTestsIndividualMethods
     {
-        #region Functioal Tests
-        // TESTS ENTIRE FUNCTIONALITY
-        // FUNCTIONAL TESTS: Test 1,Test 2, Test 3
 
-        // Data from Table 1 as Input
-        // Data from Table 2 as Output
-        [Test]
-        public void RegressionAlgorithmFromFileTestfile1()
-        {
-            double[]? result = MultipleRegression.RegressionAlgorithmFromFile("Test_Data_1.txt");
-
-            Assert.That(result?[0], Is.EqualTo(0.5665));
-            Assert.That(result[1], Is.EqualTo(0.0653));
-            Assert.That(result[2], Is.EqualTo(0.0087));
-            Assert.That(result[3], Is.EqualTo(0.1510));
-        }
-
-        // Data from Table 3 as Input
-        // Data from Table 4 as Output
-        [Test]
-        public void RegressionAlgorithmFromFileTestfile2()
-        {
-            double[]? result = MultipleRegression.RegressionAlgorithmFromFile("Test_Data_2.txt");
-
-            Assert.That(result?[0], Is.EqualTo(6.7013));
-            Assert.That(result[1], Is.EqualTo(0.0784));
-            Assert.That(result[2], Is.EqualTo(0.015));
-            Assert.That(result[3], Is.EqualTo(0.2461));
-        }
-
-        // Data from file 3
-        [Test]
-        public void RegressionAlgorithmFromFileTestfile3()
-        {
-            double[]? result = MultipleRegression.RegressionAlgorithmFromFile("Test_Data_3.txt");
-
-            Assert.That(result?[0], Is.EqualTo(-0.8));
-            Assert.That(result[1], Is.EqualTo(2.1333));
-            Assert.That(result[2], Is.EqualTo(-1.1667));
-            Assert.That(result[3], Is.EqualTo(0.3667));
-        }
-
-        #endregion
-
-        #region Unit Tests
-        // TESTS INDIVIDUAL METHODS:
-        // TESTING ReadDataFromFile
+        #region ReadDataFromFile
         [Test]
         public void ReadDataFromFileTestfile1()
         {
@@ -123,8 +78,11 @@ namespace Tests
             Assert.That(actualData[5], Is.EqualTo(expectedData[5]));
         }
 
+        #endregion
 
-        // TESTING ConstructMatrix
+
+        #region ConstructMatrix
+
         [Test]
         public void ConstructMatrixTestfile1()
         {
@@ -215,8 +173,11 @@ namespace Tests
             Assert.That(actualData[3], Is.EqualTo(expectedData[3]));
         }
 
+        #endregion
 
-        // TESTING ReduceMatrixToRowForm:
+
+        #region ReduceMatrixToRowForm
+
         [Test]
         public void ReduceMatrixToRowFormTestfile1()
         {
@@ -301,8 +262,10 @@ namespace Tests
             Assert.That(matrix[3], Is.EqualTo(expectedData[3]));
         }
 
+        #endregion
 
-        // TESTING BackSubstitution:
+
+        #region BackSubstitution
         [Test]
         public void BackSubstitutionTsetfile1()
         {
@@ -368,185 +331,6 @@ namespace Tests
             Assert.That(actualData[2], Is.EqualTo(expectedData[2]));
             Assert.That(actualData[3], Is.EqualTo(expectedData[3]));
         }
-
-        #endregion
-
-        #region Error Tests
-
-
-        #region Variable Input
-
-        [Test]
-        public void ValidVariableInput()
-        {
-            int result = InputHandler.ValidateVariableInput("5");
-            Assert.That(result, Is.EqualTo(5));
-        }
-
-
-        [Test]
-        public void InvalidVariableInputLessThanTwo()
-        {
-            var stringWriter = new StringWriter();
-            Console.SetOut(stringWriter);
-
-            var result = InputHandler.ValidateVariableInput("1");
-
-            string expectedErrorMessage = "Invalid input. Please enter a number equal or greater than 2.";
-            string consoleOutput = stringWriter.ToString();
-            Assert.That(result, Is.EqualTo(-1));
-            Assert.IsTrue(consoleOutput.Contains(expectedErrorMessage));
-        }
-
-        [Test]
-        public void InvalidVariableInputNotAnInt()
-        {
-            var stringWriter = new StringWriter();
-            Console.SetOut(stringWriter);
-
-            var result = InputHandler.ValidateVariableInput("5f");
-
-            string expectedErrorMessage = "Invalid input. Please enter a whole number.";
-            string consoleOutput = stringWriter.ToString();
-            Assert.That(result, Is.EqualTo(-1));
-            Assert.IsTrue(consoleOutput.Contains(expectedErrorMessage));
-        }
-
-
-
-
-
-
-        #endregion
-
-
-        #region File Path Input
-
-        [Test]
-        public void ValidFilePathInput()
-        {
-            string? result = InputHandler.ValidateFilePathInput("Test_Data_1.txt");
-            Assert.That(result, Is.EqualTo("Test_Data_1.txt"));
-        }
-
-        [Test]
-        public void InValidFilePathInputNotExistant()
-        {
-            var stringWriter = new StringWriter();
-            Console.SetOut(stringWriter);
-
-            string? result = InputHandler.ValidateFilePathInput("non_existant_file.txt");
-
-            string expectedErrorMessage = "File does not exist. Please enter a valid file path.";
-            string consoleOutput = stringWriter.ToString();
-            Assert.That(result, Is.EqualTo(null));
-            Assert.IsTrue(consoleOutput.Contains(expectedErrorMessage));
-        }
-
-        [Test]
-        public void InValidFilePathInputNoExtension()
-        {
-            var stringWriter = new StringWriter();
-            Console.SetOut(stringWriter);
-
-            string? result = InputHandler.ValidateFilePathInput("test_file");
-
-            string expectedErrorMessage = "Invalid or missing file format. Only .txt files are supported.";
-            string consoleOutput = stringWriter.ToString();
-            Assert.That(result, Is.EqualTo(null));
-            Assert.IsTrue(consoleOutput.Contains(expectedErrorMessage));
-        }
-
-        [Test]
-        public void InValidFilePathInputIncorrectExtension()
-        {
-            var stringWriter = new StringWriter();
-            Console.SetOut(stringWriter);
-
-            string? result = InputHandler.ValidateFilePathInput("test_file.something");
-
-            string expectedErrorMessage = "Invalid or missing file format. Only .txt files are supported.";
-            string consoleOutput = stringWriter.ToString();
-            Assert.That(result, Is.EqualTo(null));
-            Assert.IsTrue(consoleOutput.Contains(expectedErrorMessage));
-        }
-
-        #endregion
-
-
-        #region Data Handling
-
-        [Test]
-        public void DataInvalidSampleNumber()
-        {
-            var stringWriter = new StringWriter();
-            Console.SetOut(stringWriter);
-
-            double[]? result = MultipleRegression.RegressionAlgorithmFromFile("Test_Data_5.txt");
-
-            string expectedErrorMessage = "Invalid number of samples. Ensure that the samples are more than the variables.";
-            string consoleOutput = stringWriter.ToString();
-            Assert.That(result, Is.EqualTo(null));
-            Assert.IsTrue(consoleOutput.Contains(expectedErrorMessage));
-        }
-
-        [Test]
-        public void DataInconsistantDataFormat()
-        {
-            var stringWriter = new StringWriter();
-            Console.SetOut(stringWriter);
-
-            double[]? result = MultipleRegression.RegressionAlgorithmFromFile("Test_Data_6.txt");
-
-            string expectedErrorMessage = "Inconsistent data format. Ensure that the samples are only numbers.";
-            string consoleOutput = stringWriter.ToString();
-            Assert.That(result, Is.EqualTo(null));
-            Assert.IsTrue(consoleOutput.Contains(expectedErrorMessage));
-        }
-
-        [Test]
-        public void DataMulticolinearity()
-        {
-            var stringWriter = new StringWriter();
-            Console.SetOut(stringWriter);
-
-            double[]? result = MultipleRegression.RegressionAlgorithmFromFile("Test_Data_4.txt");
-
-            string expectedErrorMessage = "The data has multicolinearity. A correlation coefficient is close to 1 or -1";
-            string consoleOutput = stringWriter.ToString();
-            Assert.That(result, Is.EqualTo(null));
-            Assert.IsTrue(consoleOutput.Contains(expectedErrorMessage));
-        }
-
-        [Test]
-        public void DataSamplesValueZero()
-        {
-            var stringWriter = new StringWriter();
-            Console.SetOut(stringWriter);
-
-            double[]? result = MultipleRegression.RegressionAlgorithmFromFile("Test_Data_9.txt");
-
-            string expectedErrorMessage = "One or more variables have only zero sample values. Exiting program.";
-            string consoleOutput = stringWriter.ToString();
-            Assert.That(result, Is.EqualTo(null));
-            Assert.IsTrue(consoleOutput.Contains(expectedErrorMessage));
-        }
-
-        [Test]
-        public void DataVariablesWithTheSameSamples()
-        {
-            var stringWriter = new StringWriter();
-            Console.SetOut(stringWriter);
-
-            double[]? result = MultipleRegression.RegressionAlgorithmFromFile("Test_Data_10.txt");
-
-            string expectedErrorMessage = "Two or more variables have the same values for every sample.";
-            string consoleOutput = stringWriter.ToString();
-            Assert.That(result, Is.EqualTo(null));
-            Assert.IsTrue(consoleOutput.Contains(expectedErrorMessage));
-        }
-
-        #endregion
 
         #endregion
     }
